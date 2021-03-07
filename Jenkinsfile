@@ -20,5 +20,11 @@ pipeline {
       }
     }
 
+    stage('Prod Deployment') {
+      steps {
+        ansiblePlaybook(playbook: '/home/miki/prodep.yml', inventory: '/home/miki/host.ini')
+      }
+    }
+
   }
 }
