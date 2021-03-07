@@ -14,5 +14,11 @@ pipeline {
       }
     }
 
+    stage('Setup App server ') {
+      steps {
+        ansiblePlaybook(become: true, becomeUser: 'sudo', colorized: true, playbook: '/home/miki/docker.yml', inventory: '/home/miki/host.ini')
+      }
+    }
+
   }
 }
