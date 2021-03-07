@@ -8,5 +8,11 @@ pipeline {
       }
     }
 
+    stage('Test and Build') {
+      steps {
+        sh 'mvn test install'
+      }
+    }
+
   }
 }
