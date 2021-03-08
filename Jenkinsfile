@@ -31,20 +31,9 @@ pipeline {
       }
     }
 
-    stage('Prod Deployment') {
-      parallel {
-        stage('Setup Prod') {
-          steps {
-            ansiblePlaybook(playbook: '/home/miki/dockerp.yml', inventory: '/home/miki/host.ini')
-          }
-        }
-
-        stage('Prod Deployment') {
-          steps {
-            ansiblePlaybook(playbook: '/home/miki/prodep.yml', inventory: '/home/miki/host.ini')
-          }
-        }
-
+    stage('Approval for prod ') {
+      steps {
+        input(message: 'Do you approve Prod deployment', ok: 'Ok')
       }
     }
 
