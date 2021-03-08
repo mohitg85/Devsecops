@@ -14,9 +14,20 @@ pipeline {
       }
     }
 
-    stage('Setup App server ') {
-      steps {
-        ansiblePlaybook(becomeUser: 'sudo', playbook: '/home/miki/docker.yml', inventory: '/home/miki/host.ini')
+    stage('Setup Staginng ') {
+      parallel {
+        stage('Setup Staginng ') {
+          steps {
+            ansiblePlaybook(becomeUser: 'sudo', playbook: '/home/miki/docker.yml', inventory: '/home/miki/host.ini')
+          }
+        }
+
+        stage('Setup Prod') {
+          steps {
+            ansiblePlaybook(playbook: '/home/miki/dockerp.yml', inventory: '/home/miki/host.ini')
+          }
+        }
+
       }
     }
 
