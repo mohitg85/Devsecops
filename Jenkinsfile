@@ -14,7 +14,7 @@ pipeline {
       }
     }
 
-    stage('Setup Staginng ') {
+    stage('Setup Environment') {
       parallel {
         stage('Setup Staginng ') {
           steps {
