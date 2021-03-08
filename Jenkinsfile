@@ -14,7 +14,7 @@ pipeline {
       }
     }
 
-    stage('Setup Environment') {
+    stage('Staging deployment') {
       parallel {
         stage('Setup Staginng ') {
           steps {
@@ -22,9 +22,9 @@ pipeline {
           }
         }
 
-        stage('Setup Prod') {
+        stage('Stage Deployment') {
           steps {
-            ansiblePlaybook(playbook: '/home/miki/dockerp.yml', inventory: '/home/miki/host.ini')
+            ansiblePlaybook(playbook: '/home/miki/jenkins.yml', inventory: '/home/miki/host.ini')
           }
         }
 
@@ -32,8 +32,19 @@ pipeline {
     }
 
     stage('Prod Deployment') {
-      steps {
-        ansiblePlaybook(playbook: '/home/miki/prodep.yml', inventory: '/home/miki/host.ini')
+      parallel {
+        stage('Setup Prod') {
+          steps {
+            ansiblePlaybook(playbook: '/home/miki/dockerp.yml', inventory: '/home/miki/host.ini')
+          }
+        }
+
+        stage('Prod Deployment') {
+          steps {
+            ansiblePlaybook(playbook: '/home/miki/jenkinsp.yml', inventory: '/home/miki/host.ini')
+          }
+        }
+
       }
     }
 
