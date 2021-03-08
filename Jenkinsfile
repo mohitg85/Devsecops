@@ -24,7 +24,7 @@ pipeline {
 
         stage('Stage Deployment') {
           steps {
-            ansiblePlaybook(playbook: '/home/miki/jenkins.yml', inventory: '/home/miki/host.ini')
+            ansiblePlaybook(playbook: '/home/miki/stagedep.yml', inventory: '/home/miki/host.ini')
           }
         }
 
@@ -41,7 +41,7 @@ pipeline {
 
         stage('Prod Deployment') {
           steps {
-            ansiblePlaybook(playbook: '/home/miki/jenkinsp.yml', inventory: '/home/miki/host.ini')
+            ansiblePlaybook(playbook: '/home/miki/prodep.yml', inventory: '/home/miki/host.ini')
           }
         }
 
